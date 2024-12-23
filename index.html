@@ -1248,7 +1248,7 @@
                         Furkan Erdoğan
                     </h1>
                     <p class="lead animate__animated animate__fadeInLeft animate__delay-1s">
-                        AI & Frontend Developer
+                        <span class="typed"></span>
                     </p>
                     <div class="typing-text animate__animated animate__fadeInLeft animate__delay-2s">
                         <span class="typed"></span>
@@ -2197,6 +2197,28 @@
             const overlay = document.querySelector('.transition-overlay');
             overlay.classList.remove('transition-active');
         }
+    </script>
+
+    <!-- Sayfanın en altında, diğer script'lerden önce -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const typed = new Typed('.typed', {
+                strings: [
+                    'AI & Frontend Developer',
+                    'Full Stack Developer',
+                    'Conversational AI Developer',
+                    'Generative AI Developer',
+                    'Machine Learning Engineer',
+                    'RPA Developer'
+                ],
+                typeSpeed: 50,
+                backSpeed: 30,
+                backDelay: 2000,
+                loop: true,
+                showCursor: true,
+                cursorChar: '|'
+            });
+        });
     </script>
 </body>
 </html>
