@@ -1891,13 +1891,14 @@
     </script>
 
     <!-- Audio elementi güncelle -->
-    <audio id="cyberpunkAudio" preload="auto" loop>
+    <audio id="cyberpunkAudio" preload="none" loop>
         <source src="assets/cp.mp3" type="audio/mp3">
         <source src="cp.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
     </audio>
 
     <script>
-        // toggleCyberpunkMode fonksiyonunu güncelleyelim
+        // Cyberpunk mode toggle fonksiyonunu güncelleyelim
         function toggleCyberpunkMode() {
             const body = document.body;
             const button = document.querySelector('.cyberpunk-mode-toggle');
@@ -1909,7 +1910,6 @@
             // Geçiş efektini başlat
             transitionOverlay.classList.add('transition-active');
             
-            // Geçiş ortasında mod değişimi
             setTimeout(() => {
                 body.classList.toggle('cyberpunk-mode');
                 button.classList.toggle('active');
@@ -1919,11 +1919,27 @@
                     cyberAnim.style.display = 'block';
                     enableCyberpunkEffects();
                     
-                    const playPromise = audio.play();
-                    if (playPromise !== undefined) {
-                        playPromise.catch(error => {
-                            console.log("Audio playback failed:", error);
-                        });
+                    // Mobil kontrolü ekleyelim
+                    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                        // Mobil cihazda ise kullanıcıya bir bildirim gösterelim
+                        const playMusic = confirm('Cyberpunk modunda müzik çalmak ister misiniz?');
+                        if (playMusic) {
+                            const playPromise = audio.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch(error => {
+                                    console.log("Audio playback failed:", error);
+                                    alert('Müzik çalınamadı. Lütfen sayfayı yenileyip tekrar deneyin.');
+                                });
+                            }
+                        }
+                    } else {
+                        // Masaüstünde normal çalışsın
+                        const playPromise = audio.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.log("Audio playback failed:", error);
+                            });
+                        }
                     }
                 } else {
                     normalAnim.style.display = 'block';
@@ -1935,9 +1951,8 @@
                 
                 const isCyberpunkMode = body.classList.contains('cyberpunk-mode');
                 localStorage.setItem('cyberpunkMode', isCyberpunkMode);
-            }, 500); // Geçişin ortasında mod değişimi
+            }, 500);
             
-            // Geçiş tamamlandığında overlay'i sıfırla
             setTimeout(() => {
                 transitionOverlay.classList.remove('transition-active');
             }, 1000);
