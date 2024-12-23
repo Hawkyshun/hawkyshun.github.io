@@ -339,8 +339,68 @@
         }
 
         .lottie-container {
-            width: 300px;
-            height: 300px;
+            position: relative;
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        /* Desktop için Lottie boyutu */
+        @media (min-width: 992px) {
+            .lottie-container {
+                width: 500px;
+                height: 500px;
+            }
+
+            dotlottie-player {
+                width: 100% !important;
+                height: 100% !important;
+            }
+        }
+
+        /* Tablet için Lottie boyutu */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .lottie-container {
+                width: 400px;
+                height: 400px;
+            }
+
+            dotlottie-player {
+                width: 100% !important;
+                height: 100% !important;
+            }
+        }
+
+        /* Mobil için Lottie boyutu */
+        @media (max-width: 767px) {
+            .lottie-container {
+                width: 300px;
+                height: 300px;
+                margin: 1rem auto;
+            }
+
+            dotlottie-player {
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            .hero-section .row {
+                flex-direction: column-reverse;
+            }
+
+            .hero-section .col-md-6 {
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+
+        /* Çok küçük ekranlar için */
+        @media (max-width: 576px) {
+            .lottie-container {
+                width: 250px;
+                height: 250px;
+            }
         }
 
         /* Experience section styles */
@@ -840,27 +900,307 @@
             80% { transform: none; opacity: 1; }
             100% { transform: none; opacity: 1; }
         }
+
+        /* Mobil Responsive Düzenlemeler */
+        @media (max-width: 768px) {
+            /* Hero Section düzenlemeleri */
+            .hero-section {
+                min-height: auto;
+                padding: 2rem 0;
+            }
+
+            .lottie-container {
+                width: 100%;
+                height: auto;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            /* Navbar düzenlemeleri */
+            .navbar-custom {
+                padding: 0.5rem 1rem;
+            }
+
+            .navbar-custom .navbar-brand {
+                font-size: 1.2rem;
+            }
+
+            /* Card düzenlemeleri */
+            .card {
+                margin-bottom: 1rem;
+            }
+
+            .card-body {
+                padding: 1rem;
+            }
+
+            /* Skill badges düzenlemeleri */
+            .skills-used .badge {
+                margin: 0.25rem;
+                font-size: 0.8rem;
+            }
+
+            /* Certificate cards düzenlemeleri */
+            .certificate-card {
+                padding: 10px;
+            }
+
+            .certificate-content h5 {
+                font-size: 0.9rem;
+            }
+
+            .certificate-content p {
+                font-size: 0.8rem;
+            }
+
+            /* Swiper düzenlemeleri */
+            .swiper {
+                padding: 20px 0;
+            }
+
+            .swiper-slide {
+                width: 100%;
+                height: auto;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 30px !important;
+                height: 30px !important;
+            }
+
+            .swiper-button-next:after,
+            .swiper-button-prev:after {
+                font-size: 15px !important;
+            }
+
+            /* Typography düzenlemeleri */
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+
+            .lead {
+                font-size: 1rem;
+            }
+
+            /* Button düzenlemeleri */
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            /* Experience section düzenlemeleri */
+            .experience-section .card {
+                margin-left: 0;
+            }
+        }
+
+        /* Daha küçük ekranlar için ek düzenlemeler */
+        @media (max-width: 576px) {
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .hero-section {
+                text-align: center;
+            }
+
+            .hero-image {
+                margin-top: 2rem;
+            }
+
+            /* Sertifika kartları için düzenlemeler */
+            .certificatesSwiper {
+                padding: 0 20px !important;
+            }
+
+            .certificate-card img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Navbar ve kontrol butonları için responsive düzenlemeler */
+        @media (max-width: 768px) {
+            .navbar-custom {
+                padding: 0.5rem 1rem;
+            }
+
+            /* Dark mode switch container */
+            .form-check {
+                margin: 0.5rem 0;
+                display: flex;
+                align-items: center;
+            }
+
+            /* Dark mode switch */
+            .form-check-input {
+                margin-right: 0.5rem;
+                width: 40px;
+                height: 20px;
+            }
+
+            /* Cyberpunk mode button */
+            .cyberpunk-mode-toggle {
+                margin: 0.5rem 0;
+                padding: 6px 12px;
+                font-size: 0.9rem;
+                width: auto;
+            }
+
+            /* Navbar collapse içindeki elementlerin düzeni */
+            .navbar-collapse {
+                background: inherit;
+                padding: 1rem;
+                border-radius: 8px;
+            }
+
+            /* Kontrol butonlarının container'ı */
+            .navbar-collapse .ms-auto {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Daha küçük ekranlar için ek düzenlemeler */
+        @media (max-width: 576px) {
+            .navbar-custom {
+                padding: 0.5rem;
+            }
+
+            .cyberpunk-mode-toggle {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+        }
+
+        /* Navbar düzenlemeleri */
+        .navbar-custom {
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-custom .container-fluid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Mobil düzenlemeler */
+        @media (max-width: 768px) {
+            .navbar-custom {
+                padding: 0.5rem;
+            }
+
+            .cyberpunk-mode-toggle {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+        }
+
+        /* Kontrol butonları için stiller */
+        .form-check-input {
+            cursor: pointer;
+        }
+
+        .cyberpunk-mode-toggle {
+            white-space: nowrap;
+        }
+
+        /* Cyberpunk GIF stilleri */
+        .cyberpunk-gif {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Animasyon geçiş efekti */
+        #normalAnimation, #cyberpunkAnimation {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Işın kılıcı geçiş efekti için stil */
+        .transition-overlay {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--cyber-secondary) 20%,
+                var(--cyber-primary) 50%,
+                var(--cyber-secondary) 80%,
+                transparent
+            );
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        /* Geçiş animasyonu */
+        @keyframes lightsaberTransition {
+            0% {
+                left: -100%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* Aktif geçiş sınıfı */
+        .transition-active {
+            animation: lightsaberTransition 1s ease-in-out forwards;
+        }
     </style>
 </head>
 <body class="dark-mode">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-custom">
+    <nav class="navbar navbar-custom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Furkan Erdoğan</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="form-check form-switch ms-auto">
+            <!-- Dark mode switch ve Cyberpunk butonu -->
+            <div class="d-flex align-items-center">
+                <div class="form-check form-switch me-2">
                     <input class="form-check-input" type="checkbox" id="darkModeSwitch" checked>
                     <label class="form-check-label text-light" for="darkModeSwitch">
                         <span id="darkModeIcon">🌜</span>
                     </label>
                 </div>
-                <button class="cyberpunk-mode-toggle ms-3" onclick="toggleCyberpunkMode()" style="display: none;">
-                    <i class="fas fa-microchip"></i> Cyberpunk Mode
+                <button class="cyberpunk-mode-toggle" onclick="toggleCyberpunkMode()" style="display: none;">
+                    <i class="fas fa-microchip"></i> Cyberpunk
                 </button>
             </div>
+
+            <!-- Brand ismi -->
+            <a class="navbar-brand mx-auto" href="#">Furkan Erdoğan</a>
+
+            <!-- Boş div - simetri için -->
+            <div style="width: 150px;"></div> <!-- Dark mode switch ve cyberpunk butonunun genişliğine yaklaşık bir değer -->
         </div>
     </nav>
 
@@ -887,9 +1227,15 @@
                 </div>
                 <div class="col-md-6">
                     <div class="hero-image animate__animated animate__zoomIn">
-                        <!-- 3D model veya animasyonlu ilustrasyon -->
-                        <div class="lottie-container">
-<dotlottie-player src="https://lottie.host/28b5320d-2ec5-4344-9d33-9c6bc008a5da/NssQXYw88M.lottie" background="transparent" speed="1" style="width: 550px; height: 550px" loop autoplay></dotlottie-player>
+                        <!-- Normal mod için Lottie -->
+                        <div id="normalAnimation">
+                            <dotlottie-player src="https://lottie.host/28b5320d-2ec5-4344-9d33-9c6bc008a5da/NssQXYw88M.lottie" background="transparent" speed="1" loop autoplay></dotlottie-player>
+                        </div>
+                        <!-- Cyberpunk mod için GIF -->
+                        <div id="cyberpunkAnimation" style="display: none;">
+                            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXBmcW12azJoMHQ2dGx1eHg2cGRvMmpsNXloenR4bXNyanJtNzd4cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WUyyGUtzniOpYB6sA5/giphy.webp" 
+                                 alt="Cyberpunk Animation" 
+                                 class="cyberpunk-gif">
                         </div>
                     </div>
                 </div>
@@ -1295,7 +1641,7 @@
             localStorage.setItem('darkMode', isDarkMode);
         });
 
-        // Sayfa yüklendiğinde kullanıcının önceki tercihini kontrol et
+        // Sayfa y����klendiğinde kullanıcının önceki tercihini kontrol et
         document.addEventListener('DOMContentLoaded', () => {
             const savedDarkMode = localStorage.getItem('darkMode');
             if (savedDarkMode !== null) {
@@ -1551,39 +1897,66 @@
     </audio>
 
     <script>
+        // toggleCyberpunkMode fonksiyonunu güncelleyelim
         function toggleCyberpunkMode() {
             const body = document.body;
             const button = document.querySelector('.cyberpunk-mode-toggle');
             const audio = document.getElementById('cyberpunkAudio');
+            const normalAnim = document.getElementById('normalAnimation');
+            const cyberAnim = document.getElementById('cyberpunkAnimation');
+            const transitionOverlay = document.querySelector('.transition-overlay');
             
-            body.classList.toggle('cyberpunk-mode');
-            button.classList.toggle('active');
+            // Geçiş efektini başlat
+            transitionOverlay.classList.add('transition-active');
             
-            const isCyberpunkMode = body.classList.contains('cyberpunk-mode');
-            localStorage.setItem('cyberpunkMode', isCyberpunkMode);
+            // Geçiş ortasında mod değişimi
+            setTimeout(() => {
+                body.classList.toggle('cyberpunk-mode');
+                button.classList.toggle('active');
+                
+                if (body.classList.contains('cyberpunk-mode')) {
+                    normalAnim.style.display = 'none';
+                    cyberAnim.style.display = 'block';
+                    enableCyberpunkEffects();
+                    
+                    const playPromise = audio.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.log("Audio playback failed:", error);
+                        });
+                    }
+                } else {
+                    normalAnim.style.display = 'block';
+                    cyberAnim.style.display = 'none';
+                    disableCyberpunkEffects();
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+                
+                const isCyberpunkMode = body.classList.contains('cyberpunk-mode');
+                localStorage.setItem('cyberpunkMode', isCyberpunkMode);
+            }, 500); // Geçişin ortasında mod değişimi
+            
+            // Geçiş tamamlandığında overlay'i sıfırla
+            setTimeout(() => {
+                transitionOverlay.classList.remove('transition-active');
+            }, 1000);
+        }
+
+        // Sayfa yüklendiğinde cyberpunk mode durumunu kontrol et
+        document.addEventListener('DOMContentLoaded', () => {
+            const isCyberpunkMode = localStorage.getItem('cyberpunkMode') === 'true';
+            const normalAnim = document.getElementById('normalAnimation');
+            const cyberAnim = document.getElementById('cyberpunkAnimation');
             
             if (isCyberpunkMode) {
+                document.body.classList.add('cyberpunk-mode');
+                document.querySelector('.cyberpunk-mode-toggle')?.classList.add('active');
+                normalAnim.style.display = 'none';
+                cyberAnim.style.display = 'block';
                 enableCyberpunkEffects();
-                // Kullanıcı etkileşimi ile ses çalmayı dene
-                const playPromise = audio.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise
-                        .then(() => {
-                            console.log("Audio started playing successfully");
-                        })
-                        .catch(error => {
-                            console.log("Audio playback failed:", error);
-                            // Kullanıcıya ses çalma izni için bir bildirim göster
-                            alert("Cyberpunk deneyimi için ses efektlerini etkinleştirmek ister misiniz?");
-                        });
-                }
-            } else {
-                disableCyberpunkEffects();
-                audio.pause();
-                audio.currentTime = 0;
             }
-        }
+        });
 
         function enableCyberpunkEffects() {
             // Glitch efekti için class ekle
@@ -1619,22 +1992,36 @@
             
             setTimeout(() => trail.remove(), 1000);
         }
+    </script>
 
-        // Sayfa yüklendiğinde cyberpunk mode durumunu kontrol et
-        document.addEventListener('DOMContentLoaded', () => {
-            const isCyberpunkMode = localStorage.getItem('cyberpunkMode') === 'true';
-            if (isCyberpunkMode) {
-                document.body.classList.add('cyberpunk-mode');
-                document.querySelector('.cyberpunk-mode-toggle')?.classList.add('active');
-                enableCyberpunkEffects();
-            }
-            
-            // Font'u yükle
-            const link = document.createElement('link');
-            link.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap';
-            link.rel = 'stylesheet';
-            document.head.appendChild(link);
-        });
+    <!-- Işın kılıcı geçiş efekti için stil -->
+    <div class="transition-overlay"></div>
+
+    <!-- Geçiş animasyonu -->
+    <script>
+        // Geçiş animasyonunu başlat
+        function startTransition() {
+            const overlay = document.querySelector('.transition-overlay');
+            overlay.classList.add('transition-active');
+        }
+
+        // Geçiş animasyonunu durdur
+        function stopTransition() {
+            const overlay = document.querySelector('.transition-overlay');
+            overlay.classList.remove('transition-active');
+        }
+
+        // Geçiş animasyonunu başlat
+        function startTransition() {
+            const overlay = document.querySelector('.transition-overlay');
+            overlay.classList.add('transition-active');
+        }
+
+        // Geçiş animasyonunu durdur
+        function stopTransition() {
+            const overlay = document.querySelector('.transition-overlay');
+            overlay.classList.remove('transition-active');
+        }
     </script>
 </body>
 </html>
