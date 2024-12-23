@@ -88,7 +88,7 @@
         }
         /* Dark Mode Styles */
         body.dark-mode {
-            background-color: #121212;
+            background-color: rgba(18, 18, 18, 0.8) !important; /* Opacity ekleyelim */
             color: #e0e0e0;
         }
         .dark-mode .navbar-custom {
@@ -190,7 +190,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #0a0a0a;
+            background: none !important; /* Eğer varsa kaldıralım */
             color: #ffffff;
         }
 
@@ -293,7 +293,7 @@
 
         /* Light Mode stiller */
         body:not(.dark-mode) {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.8) !important; /* Opacity ekleyelim */
             color: #333333;
         }
 
@@ -622,9 +622,12 @@
             pointer-events: none;
             will-change: transform;
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -1; /* z-index'i -1'e çevirelim */
+            pointer-events: none;
         }
 
         /* Animasyon optimizasyonları */
@@ -794,7 +797,7 @@
 
         /* Cyberpunk mode stilleri */
         .cyberpunk-mode {
-            background-color: var(--cyber-bg);
+            background-color: rgba(0, 6, 20, 0.8) !important; /* Opacity ekleyelim */
             color: var(--cyber-text);
             transition: all 0.5s ease;
             position: relative;
@@ -854,7 +857,7 @@
             background-size: 22px 22px;
             opacity: 0.1;
             animation: gridMove 20s linear infinite;
-            z-index: -1;
+            z-index: -2; /* Grid'i particles'ın arkasına atalım */
         }
 
         @keyframes cyberpunkPulse {
@@ -1177,9 +1180,41 @@
         .transition-active {
             animation: lightsaberTransition 1s ease-in-out forwards;
         }
+
+        /* İçerik katmanının z-index'ini ayarlayalım */
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navbar'ın z-index'ini ayarlayalım */
+        .navbar-custom {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer'ın z-index'ini ayarlayalım */
+        footer {
+            position: relative;
+            z-index: 1;
+        }
     </style>
+    <!-- Particles.js'i head içinde yükleyelim -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body class="dark-mode">
+    <!-- Particles container'ı en üste alalım -->
+    <div id="particles-js" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        background: transparent;
+    "></div>
+    
     <!-- Navbar -->
     <nav class="navbar navbar-custom">
         <div class="container-fluid">
@@ -1203,9 +1238,6 @@
             <div style="width: 150px;"></div> <!-- Dark mode switch ve cyberpunk butonunun genişliğine yaklaşık bir değer -->
         </div>
     </nav>
-
-    <!-- Particle.js için container ekleyelim -->
-    <div id="particles-js" class="position-fixed w-100 h-100" style="z-index: -1;"></div>
 
     <!-- Hero Section -->
     <div class="hero-section text-center py-5">
@@ -1641,7 +1673,7 @@
             localStorage.setItem('darkMode', isDarkMode);
         });
 
-        // Sayfa y����klendiğinde kullanıcının önceki tercihini kontrol et
+        // Sayfa yüklendiğinde kullanıcının önceki tercihini kontrol et
         document.addEventListener('DOMContentLoaded', () => {
             const savedDarkMode = localStorage.getItem('darkMode');
             if (savedDarkMode !== null) {
@@ -1676,64 +1708,186 @@
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
     <script>
-        // Particles.js konfigürasyonunu optimize et
-        particlesJS("particles-js", {
+        // Temel particles konfigürasyonu
+        const baseConfig = {
             particles: {
-                number: { 
-                    value: 15,  // Parçacık sayısını azalt
-                    density: { enable: false }
+                number: {
+                    value: 50,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
                 },
-                opacity: { value: 0.1 },
-                size: { value: 1 },
+                size: {
+                    value: 3,
+                    random: true
+                },
                 move: {
                     enable: true,
-                    speed: 0.5,  // Hızı azalt
+                    speed: 2,
                     direction: "none",
                     random: false,
-                    straight: true,
+                    straight: false,
                     out_mode: "out",
                     bounce: false
-                },
-                line_linked: { enable: false }
-            },
-            retina_detect: false,
-            fps_limit: 30
-        });
-
-        // Scroll event listener'ı optimize et
-        const scrollHandler = throttle(() => {
-            // Scroll işlemleri buraya
-        }, 150);  // Throttle süresini artır
-
-        window.addEventListener('scroll', scrollHandler, { passive: true });
-
-        // IntersectionObserver kullanarak lazy loading
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
                 }
-            });
-        }, { threshold: 0.1 });
+            }
+        };
 
-        // Gerekli elementleri gözlemle
-        document.querySelectorAll('.project-card, .skill-card').forEach(el => {
-            observer.observe(el);
+        // Dark mode için parçacık renkleri
+        const darkModeColors = {
+            particles: {
+                ...baseConfig.particles,
+                color: {
+                    value: "#ffffff"
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#ffffff",
+                    opacity: 0.2,
+                    width: 1
+                }
+            }
+        };
+
+        // Light mode için parçacık renkleri
+        const lightModeColors = {
+            particles: {
+                ...baseConfig.particles,
+                color: {
+                    value: "#000000"
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#000000",
+                    opacity: 0.2,
+                    width: 1
+                }
+            }
+        };
+
+        // Cyberpunk mode için parçacık renkleri
+        const cyberpunkColors = {
+            particles: {
+                ...baseConfig.particles,
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: ["#ff00ff", "#00ffff", "#ff0000"]
+                },
+                opacity: {
+                    value: 0.7
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#00ffff",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    speed: 3
+                }
+            }
+        };
+
+        // Particles.js'i başlat
+        document.addEventListener('DOMContentLoaded', function() {
+            // İlk yükleme için dark mode kontrolü
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const isCyberpunkMode = document.body.classList.contains('cyberpunk-mode');
+            
+            if (isCyberpunkMode) {
+                particlesJS('particles-js', cyberpunkColors);
+            } else if (isDarkMode) {
+                particlesJS('particles-js', darkModeColors);
+            } else {
+                particlesJS('particles-js', lightModeColors);
+            }
         });
 
-        // Typed.js konfigürasyonu
-        new Typed('.typed', {
-            strings: [
-                'Rasa Framework Uzman',
-                'Frontend Developer',
-                'AI Enthusiast',
-                'Problem Solver'
-            ],
-            typeSpeed: 50,
-            backSpeed: 30,
-            loop: true
+        // Dark mode switch event listener'ı
+        darkModeSwitch.addEventListener('change', function() {
+            const isDarkMode = this.checked;
+            if (isDarkMode) {
+                particlesJS('particles-js', darkModeColors);
+            } else {
+                particlesJS('particles-js', lightModeColors);
+            }
         });
+
+        // Cyberpunk mode toggle fonksiyonu
+        function toggleCyberpunkMode() {
+            const body = document.body;
+            const button = document.querySelector('.cyberpunk-mode-toggle');
+            const audio = document.getElementById('cyberpunkAudio');
+            const normalAnim = document.getElementById('normalAnimation');
+            const cyberAnim = document.getElementById('cyberpunkAnimation');
+            const transitionOverlay = document.querySelector('.transition-overlay');
+            const isDarkMode = darkModeSwitch.checked; // Dark mode durumunu kontrol et
+            
+            transitionOverlay.classList.add('transition-active');
+            
+            setTimeout(() => {
+                body.classList.toggle('cyberpunk-mode');
+                button.classList.toggle('active');
+                
+                if (body.classList.contains('cyberpunk-mode')) {
+                    particlesJS('particles-js', cyberpunkColors);
+                    normalAnim.style.display = 'none';
+                    cyberAnim.style.display = 'block';
+                    enableCyberpunkEffects();
+                    
+                    // Mobil kontrolü ekleyelim
+                    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                        // Mobil cihazda ise kullanıcıya bir bildirim gösterelim
+                        const playMusic = confirm('Cyberpunk modunda müzik çalmak ister misiniz?');
+                        if (playMusic) {
+                            const playPromise = audio.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch(error => {
+                                    console.log("Audio playback failed:", error);
+                                    alert('Müzik çalınamadı. Lütfen sayfayı yenileyip tekrar deneyin.');
+                                });
+                            }
+                        }
+                    } else {
+                        // Masaüstünde normal çalışsın
+                        const playPromise = audio.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.log("Audio playback failed:", error);
+                            });
+                        }
+                    }
+                } else {
+                    // Cyberpunk mode kapatılınca dark/light mode kontrolü
+                    if (isDarkMode) {
+                        particlesJS('particles-js', darkModeColors);
+                    } else {
+                        particlesJS('particles-js', lightModeColors);
+                    }
+                    normalAnim.style.display = 'block';
+                    cyberAnim.style.display = 'none';
+                    disableCyberpunkEffects();
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+                
+                localStorage.setItem('cyberpunkMode', body.classList.contains('cyberpunk-mode'));
+            }, 500);
+            
+            setTimeout(() => {
+                transitionOverlay.classList.remove('transition-active');
+            }, 1000);
+        }
     </script>
 
     <script>
@@ -1892,7 +2046,6 @@
 
     <!-- Audio elementi güncelle -->
     <audio id="cyberpunkAudio" preload="none" loop>
-        <source src="assets/cp.mp3" type="audio/mp3">
         <source src="cp.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
@@ -1906,8 +2059,8 @@
             const normalAnim = document.getElementById('normalAnimation');
             const cyberAnim = document.getElementById('cyberpunkAnimation');
             const transitionOverlay = document.querySelector('.transition-overlay');
+            const isDarkMode = darkModeSwitch.checked; // Dark mode durumunu kontrol et
             
-            // Geçiş efektini başlat
             transitionOverlay.classList.add('transition-active');
             
             setTimeout(() => {
@@ -1915,6 +2068,7 @@
                 button.classList.toggle('active');
                 
                 if (body.classList.contains('cyberpunk-mode')) {
+                    particlesJS('particles-js', cyberpunkColors);
                     normalAnim.style.display = 'none';
                     cyberAnim.style.display = 'block';
                     enableCyberpunkEffects();
@@ -1942,6 +2096,12 @@
                         }
                     }
                 } else {
+                    // Cyberpunk mode kapatılınca dark/light mode kontrolü
+                    if (isDarkMode) {
+                        particlesJS('particles-js', darkModeColors);
+                    } else {
+                        particlesJS('particles-js', lightModeColors);
+                    }
                     normalAnim.style.display = 'block';
                     cyberAnim.style.display = 'none';
                     disableCyberpunkEffects();
@@ -1949,8 +2109,7 @@
                     audio.currentTime = 0;
                 }
                 
-                const isCyberpunkMode = body.classList.contains('cyberpunk-mode');
-                localStorage.setItem('cyberpunkMode', isCyberpunkMode);
+                localStorage.setItem('cyberpunkMode', body.classList.contains('cyberpunk-mode'));
             }, 500);
             
             setTimeout(() => {
@@ -1970,6 +2129,7 @@
                 normalAnim.style.display = 'none';
                 cyberAnim.style.display = 'block';
                 enableCyberpunkEffects();
+                particlesJS("particles-js", cyberpunkParticlesConfig);
             }
         });
 
