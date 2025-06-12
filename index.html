@@ -52,6 +52,7 @@
 
         .navbar-custom {
             background: rgba(31, 31, 31, 0.95);
+            -webkit-backdrop-filter: none;
             backdrop-filter: none;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -113,6 +114,11 @@
         .project-card {
             position: relative;
             overflow: hidden;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease;
         }
 
         .project-card img {
@@ -210,6 +216,7 @@
 
         .skill-card {
             background: rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 2rem;
@@ -238,10 +245,25 @@
             background: var(--gradient-2);
             opacity: 0;
             transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .project-card:hover::before {
-            opacity: 0.9;
+            opacity: 0.1;
+        }
+
+        /* Proje kartları içeriğinin z-index'ini artıralım */
+        .project-card .card-body {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Butonların tıklanabilir olmasını garantileyelim */
+        .project-card .btn {
+            position: relative;
+            z-index: 3;
+            pointer-events: auto;
         }
 
         .typing-text {
@@ -478,22 +500,16 @@
 
         .certificate-card {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             height: auto;
-            padding: 15px;
+            padding: 20px;
             border-radius: 15px;
             background: rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             transition: all 0.5s ease;
-        }
-
-        .certificate-card img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-right: 15px;
+            text-align: center;
         }
 
         .certificate-content {
@@ -501,13 +517,15 @@
         }
 
         .certificate-content h5 {
-            font-size: 1rem;
-            margin-bottom: 5px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-weight: 600;
         }
 
         .certificate-content p {
-            font-size: 0.9rem;
-            margin-bottom: 5px;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
             color: #a0a0a0;
         }
 
@@ -776,6 +794,7 @@
             background: rgba(0, 0, 0, 0.9);
             border-bottom: 2px solid var(--gamer-primary);
             box-shadow: 0 0 20px var(--gamer-primary);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
         }
 
@@ -1198,6 +1217,46 @@
             position: relative;
             z-index: 1;
         }
+
+        /* Proje kartları için temizlenmiş stiller */
+        .projects-section .project-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .projects-section .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .typing-text {
+            font-size: 1.5rem;
+            color: #3b82f6;
+        }
+
+        /* Proje kartları için düzeltilmiş stiller */
+        .project-card {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            transition: all 0.3s ease;
+        }
+
+        /* Proje kartları hover efekti */
+        .project-card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
     <!-- Particles.js'i head içinde yükleyelim -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -1282,7 +1341,7 @@
 
         <div class="row">
             <div class="col-md-4">
-                <img src="https://media.licdn.com/dms/image/v2/D4D03AQFXi0ioeNP4ZA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1705005304796?e=1740614400&v=beta&t=lKCWGchfrM4oXt-RZoGwsDHpy-E4kCDjPeBDQOi52cM" alt="Profile Picture" class="img-fluid rounded-circle mb-3">
+                <img src="https://media.licdn.com/dms/image/v2/D4D03AQFXi0ioeNP4ZA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1705005304796?e=1755129600&v=beta&t=mn5NozGzTGtxJxhN9PmWAAZlrsPeA-Qp5tqLaLXQRhA" alt="Profile Picture" class="img-fluid rounded-circle mb-3">
             </div>
             <div class="col-md-8">
                 <h2 class="mt-3">Hi, I'm Furkan</h2>
@@ -1300,48 +1359,100 @@
             <a href="https://www.linkedin.com/in/hawkyshun/" class="me-3"><i class="fab fa-linkedin"></i></a>
         </div>
 
-        <div class="skills-section py-5">
-            <h2 class="section-title text-center">My Skills</h2>
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="skill-card p-4">
-                        <h5>Programming Languages</h5>
-                        <div class="skill-item mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Python</span>
-                                <span>90%</span>
+        <!-- Projelerim Section -->
+        <div class="projects-section py-5" id="projects">
+            <h2 class="section-title text-center">My Projects</h2>
+            <div class="row g-4 mt-4">
+                <!-- Myntr.AI -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card project-card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fab fa-python text-primary fs-3 me-3"></i>
+                                <h5 class="card-title mb-0">Myntr.AI</h5>
                             </div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 90%"></div>
+                            <p class="card-text flex-grow-1">
+                                AI-powered open source financial advisory platform. Modern AI-based financial consulting solution developed with cutting-edge technologies.
+                            </p>
+                            <div class="mt-auto">
+                                <div class="skills-used mb-3">
+                                    <span class="badge bg-success">Python</span>
+                                    <span class="badge bg-info">AI/ML</span>
+                                    <span class="badge bg-warning">Finance</span>
+                                    <span class="badge bg-secondary">Open Source</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="https://github.com/Hawkyshun/Myntr.AI" class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener">
+                                        <i class="fab fa-github me-1"></i>GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="skill-item mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>JavaScript</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <!-- Diğer diller için benzer yapılar -->
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="skill-card p-4">
-                        <h5>Frameworks & Tools</h5>
-                        <div class="skill-item mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>React</span>
-                                <span>88%</span>
+
+                <!-- TolkienAI -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card project-card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fab fa-js-square text-warning fs-3 me-3"></i>
+                                <h5 class="card-title mb-0">TolkienAI</h5>
                             </div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 88%"></div>
+                            <p class="card-text flex-grow-1">
+                                Interactive web application that allows you to explore characters from the magical world of Middle-earth. AI-powered platform developed with a custom-prepared dataset.
+                            </p>
+                            <div class="mt-auto">
+                                <div class="skills-used mb-3">
+                                    <span class="badge bg-warning">TypeScript</span>
+                                    <span class="badge bg-info">AI/ML</span>
+                                    <span class="badge bg-success">Web App</span>
+                                    <span class="badge bg-primary">Interactive</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="https://github.com/Hawkyshun/TolkienAI" class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener">
+                                        <i class="fab fa-github me-1"></i>GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <!-- Diğer frameworkler için benzer yapılar -->
                     </div>
                 </div>
+
+                <!-- hawkyshun.github.io -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card project-card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fab fa-html5 text-danger fs-3 me-3"></i>
+                                <h5 class="card-title mb-0">You are here now :)</h5>
+                            </div>
+                            <p class="card-text flex-grow-1">
+                                Modern and interactive personal website. Professional portfolio site developed with responsive design, dark/light mode and cyberpunk theme.
+                            </p>
+                            <div class="mt-auto">
+                                <div class="skills-used mb-3">
+                                    <span class="badge bg-danger">HTML</span>
+                                    <span class="badge bg-primary">CSS</span>
+                                    <span class="badge bg-warning">JavaScript</span>
+                                    <span class="badge bg-info">Bootstrap</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="https://github.com/Hawkyshun/hawkyshun.github.io" class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener">
+                                        <i class="fab fa-github me-1"></i>GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub Profil Linki -->
+            <div class="text-center mt-5">
+                <a href="https://github.com/Hawkyshun" class="btn btn-gradient btn-lg" target="_blank" rel="noopener">
+                    <i class="fab fa-github me-2"></i>View All Projects on GitHub
+                </a>
             </div>
         </div>
 
@@ -1356,28 +1467,45 @@
                 <h2 class="section-title text-center mb-5">My Certificates</h2>
                 <div class="swiper certificatesSwiper">
                     <div class="swiper-wrapper">
-                        <!-- Finansal Okuryazarlik Akademisi -->
                         <div class="swiper-slide">
                             <div class="certificate-card">
-                                <img src="https://media.licdn.com/dms/image/v2/C4D0BAQEsx-t-rTm_aw/company-logo_100_100/company-logo_100_100/0/1678089646890/anbean_tantm_danmanlk_logo?e=1743033600&v=beta&t=QfG8nmE7Wz0anx221SxlhW02fvckvj2Deog8_p432LM" alt="Finansal Okuryazarlik Akademisi">
                                 <div class="certificate-content">
-                                    <h5>Finansal Okuryazarlik Akademisi</h5>
-                                    <p>anbean</p>
-                                    <p>October 2024</p>
-                                    <a href="https://anbeankampus.co/sertifika/6218377f-2048-4627" class="btn btn-sm btn-primary" target="_blank">Show</a>
+                                    <h5>Project Initiation: Starting a Successful Project</h5>
+                                    <p><strong>Google</strong></p>
+                                    <p>Aprl 2025</p>
+                                    <a href="https://www.coursera.org/account/accomplishments/records/EFOJID9DPQEK" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Show</a>
                                 </div>
                             </div>
                         </div>
-
+                        <div class="swiper-slide">
+                            <div class="certificate-card">
+                                <div class="certificate-content">
+                                    <h5>Foundations of Project Management</h5>
+                                    <p><strong>Google</strong></p>
+                                    <p>Feb 2025</p>
+                                    <a href="https://www.coursera.org/account/accomplishments/records/KLEHULDH0PSS" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Show</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Finansal Okuryazarlik Akademisi -->
+                        <div class="swiper-slide">
+                            <div class="certificate-card">
+                                <div class="certificate-content">
+                                    <h5>Finansal Okuryazarlik Akademisi</h5>
+                                    <p><strong>anbean</strong></p>
+                                    <p>October 2024</p>
+                                    <a href="https://anbeankampus.co/sertifika/6218377f-2048-4627" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Show</a>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Web Tasarim: Bootstrap -->
                         <div class="swiper-slide">
                             <div class="certificate-card">
-                                <img src="https://media.licdn.com/dms/image/v2/C560BAQGO3FHKeeGDDA/company-logo_100_100/company-logo_100_100/0/1630588608500?e=1743033600&v=beta&t=LgOuL7Pwbp8mCSUI5oRtGuMXOJqFIAvJ6zdVMCaEIqI" alt="Web Tasarim: Bootstrap">
                                 <div class="certificate-content">
                                     <h5>Web Tasarim: Bootstrap</h5>
-                                    <p>T.C. Gençlik ve Spor Bakanligi</p>
+                                    <p><strong>T.C. Gençlik ve Spor Bakanligi</strong></p>
                                     <p>September 2024</p>
-                                    <a href="https://drive.google.com/file/d/1JCSDUXUhiIFq2pPIXVeDIS2cZE4RW2zf/view?usp=drivesdk" class="btn btn-sm btn-primary" target="_blank">Show</a>
+                                    <a href="https://drive.google.com/file/d/1JCSDUXUhiIFq2pPIXVeDIS2cZE4RW2zf/view?usp=drivesdk" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Show</a>
                                 </div>
                             </div>
                         </div>
@@ -1385,12 +1513,11 @@
                         <!-- Robotik Süreç Otomasyonu -->
                         <div class="swiper-slide">
                             <div class="certificate-card">
-                                <img src="https://media.licdn.com/dms/image/v2/D4E0BAQFcpxX22XgISQ/company-logo_100_100/company-logo_100_100/0/1700245645659?e=1743033600&v=beta&t=lEdTMR4HVGo8cPs6KSXw1pFL_1WQGhQNJFZvLPWVa1Q" alt="Softtech Logo">
                                 <div class="certificate-content">
                                     <h5>Robotik Süreç Otomasyonu (RPA)</h5>
-                                    <p>Softtech</p>
+                                    <p><strong>Softtech</strong></p>
                                     <p>March 2024</p>
-                                    <a href="https://akademi.softtech.com.tr/softtech/eep/certificate_show_3.aspx?encryptedActivityID=RKPpC%2F3T%2F5yiaXEyUIRTDA%3D%3D&encryptedUserID=v5UujbRP432CuHDtnvcjQg%3D%3D&fromLink=1" class="btn btn-sm btn-primary" target="_blank">Show</a>
+                                    <a href="https://akademi.softtech.com.tr/softtech/eep/certificate_show_3.aspx?encryptedActivityID=RKPpC%2F3T%2F5yiaXEyUIRTDA%3D%3D&encryptedUserID=v5UujbRP432CuHDtnvcjQg%3D%3D&fromLink=1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Show</a>
                                 </div>
                             </div>
                         </div>
@@ -1398,12 +1525,11 @@
                         <!-- Big Data and Machine Learning -->
                         <div class="swiper-slide">
                             <div class="certificate-card">
-                                <img src="https://media.licdn.com/dms/image/v2/C4D0BAQHFNApQF8_cBg/company-logo_100_100/company-logo_100_100/0/1679312613965/istanbul_data_science_academy_logo?e=1743033600&v=beta&t=a6QVsT9Tr7LDNM_WPX6lJFy27ChNszR6gaUOdfrhBkQ" alt="Google Cloud Logo">
                                 <div class="certificate-content">
                                     <h5>Big Data and Machine Learning on Google Cloud</h5>
-                                    <p>Istanbul Data Science Academy</p>
+                                    <p><strong>Istanbul Data Science Academy</strong></p>
                                     <p>April 2023</p>
-                                    <a href="https://drive.google.com/file/d/1DtQ-Wul37Zn7q5pHtTMSkcFYKF0lIp37/view?usp=drivesdk" class="btn btn-sm btn-primary" target="_blank">Show</a>
+                                    <a href="https://drive.google.com/file/d/1DtQ-Wul37Zn7q5pHtTMSkcFYKF0lIp37/view?usp=drivesdk" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Show</a>
                                 </div>
                             </div>
                         </div>
@@ -1411,12 +1537,11 @@
                         <!-- Convolutional Neural Networks -->
                         <div class="swiper-slide">
                             <div class="certificate-card">
-                                <img src="https://media.licdn.com/dms/image/v2/C560BAQEHKffoI8RwIQ/company-logo_100_100/company-logo_100_100/0/1630672537710/deeplearningai_logo?e=1743033600&v=beta&t=rhYG8ie_KiiCaa3a0MH9BxqRoMWJlITQ9sBaIBe9mX8" alt="DeepLearning.AI Logo">
                                 <div class="certificate-content">
                                     <h5>Convolutional Neural Networks</h5>
-                                    <p>DeepLearning.AI</p>
+                                    <p><strong>DeepLearning.AI</strong></p>
                                     <p>December 2021</p>
-                                    <a href="https://www.coursera.org/account/accomplishments/records/Z64XPHCSW2Y2" class="btn btn-sm btn-primary" target="_blank">Show</a>
+                                    <a href="https://www.coursera.org/account/accomplishments/records/Z64XPHCSW2Y2" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Show</a>
                                 </div>
                             </div>
                         </div>
@@ -1424,12 +1549,11 @@
                         <!-- Improving Deep Neural Networks -->
                         <div class="swiper-slide">
                             <div class="certificate-card">
-                                <img src="https://media.licdn.com/dms/image/v2/C560BAQEHKffoI8RwIQ/company-logo_100_100/company-logo_100_100/0/1630672537710/deeplearningai_logo?e=1743033600&v=beta&t=rhYG8ie_KiiCaa3a0MH9BxqRoMWJlITQ9sBaIBe9mX8" alt="DeepLearning.AI Logo">
                                 <div class="certificate-content">
                                     <h5>Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization</h5>
-                                    <p>DeepLearning.AI</p>
+                                    <p><strong>DeepLearning.AI</strong></p>
                                     <p>December 2021</p>
-                                    <a href="https://www.coursera.org/account/accomplishments/records/QBALJE77WBYZ" class="btn btn-sm btn-primary" target="_blank">Show</a>
+                                    <a href="https://www.coursera.org/account/accomplishments/records/QBALJE77WBYZ" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Show</a>
                                 </div>
                             </div>
                         </div>
@@ -1437,12 +1561,11 @@
                         <!-- Structuring Machine Learning Projects -->
                         <div class="swiper-slide">
                             <div class="certificate-card">
-                                <img src="https://media.licdn.com/dms/image/v2/C560BAQEHKffoI8RwIQ/company-logo_100_100/company-logo_100_100/0/1630672537710/deeplearningai_logo?e=1743033600&v=beta&t=rhYG8ie_KiiCaa3a0MH9BxqRoMWJlITQ9sBaIBe9mX8" alt="DeepLearning.AI Logo">
                                 <div class="certificate-content">
                                     <h5>Structuring Machine Learning Projects</h5>
-                                    <p>DeepLearning.AI</p>
+                                    <p><strong>DeepLearning.AI</strong></p>
                                     <p>December 2021</p>
-                                    <a href="https://www.coursera.org/account/accomplishments/records/M2FWZCK8NA79" class="btn btn-sm btn-primary" target="_blank">Show</a>
+                                    <a href="https://www.coursera.org/account/accomplishments/records/M2FWZCK8NA79" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Show</a>
                                 </div>
                             </div>
                         </div>
@@ -1450,12 +1573,11 @@
                         <!-- Neural Networks and Deep Learning -->
                         <div class="swiper-slide">
                             <div class="certificate-card">
-                                <img src="https://media.licdn.com/dms/image/v2/C560BAQEHKffoI8RwIQ/company-logo_100_100/company-logo_100_100/0/1630672537710/deeplearningai_logo?e=1743033600&v=beta&t=rhYG8ie_KiiCaa3a0MH9BxqRoMWJlITQ9sBaIBe9mX8" alt="DeepLearning.AI Logo">
                                 <div class="certificate-content">
                                     <h5>Neural Networks and Deep Learning</h5>
-                                    <p>DeepLearning.AI</p>
+                                    <p><strong>DeepLearning.AI</strong></p>
                                     <p>November 2021</p>
-                                    <a href="https://www.coursera.org/account/accomplishments/records/4TYLKTDYRQX8" class="btn btn-sm btn-primary" target="_blank">Show</a>
+                                    <a href="https://www.coursera.org/account/accomplishments/records/4TYLKTDYRQX8" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Show</a>
                                 </div>
                             </div>
                         </div>
@@ -1537,7 +1659,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><strong>Softtech</strong></h5>
                             <h6 class="card-subtitle mb-2 text-muted">Mid-Level Software Engineer - AI & Data Analytics</h6>
-                            <p class="card-subtitle mb-2 text-muted">October 2024 - Today</p>
+                            <p class="card-subtitle mb-2 text-muted">October 2024 - February 2025</p>
                             <p class="card-text">
                                 <ul>
                                     <li>Developed sorting methods and implemented functionality in React components to optimize data processing using Map and similar techniques.</li>
